@@ -2,6 +2,10 @@ const Posts = require('../models/postModel')
 const Users = require('../models/userModel')
 
 // Get Posts
+const getPosts = async (req, res) => {
+    const posts = await Posts.find()
+    res.status(200).json(posts)
+}
 
 // Create Post
 const createPost = async (req, res) => {
@@ -44,4 +48,4 @@ const createPost = async (req, res) => {
 
 // Delete Post
 
-module.exports = {createPost}
+module.exports = {createPost, getPosts}
