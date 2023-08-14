@@ -6,7 +6,7 @@ const port = process.env.PORT || 3002
 const app = express();
 
 const userRoute = require('./routes/userRoute')
-
+const postRoute = require('./routes/postRoute')
 
 app.use(cors({
     origin: true,
@@ -22,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', userRoute)
+app.use('/posts', postRoute)
 
 mongoose.connect(process.env.MONGODB, {
     useNewUrlParser :true,
