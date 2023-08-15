@@ -1,8 +1,13 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import {http} from "../config/axios"
 
-const CreatePost: React.FC = () => {
+interface NewPostProp {
+  handleRefresh: () => void;
+}
+
+const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
   const [newPost, setNewPost] = React.useState({
     title: "",
     body: "",
@@ -16,14 +21,17 @@ const CreatePost: React.FC = () => {
     }));
   };
 
-  const handlePostSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handlePostSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(newPost);
+
+    await http.post('/posts', newPost)
 
     setNewPost({
       title: "",
       body: "",
     });
+    handleRefresh();
   };
 
   return (
