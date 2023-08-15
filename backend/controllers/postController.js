@@ -41,11 +41,24 @@ const createPost = async (req, res) => {
 }
 
 // Get Post
-
+const getPost = async (req, res) => {
+    const post = await Posts.findById(req.params.id);
+    res.status(200).json(post)
+}
 
 // Update Post
+const updatePost = async (req, res) => {
+    const updatedPostId = await Posts.findByIdAndUpdate(req.params.id, req.body, {
+        new: true
+    })
+    res.status(200).json(updatedPostId)
+}
 
 
 // Delete Post
+const deletePost = async (req, res) => {
+    const deletePostId = await Posts.findByIdAndDelete(req.params.id)
+    res.status(200).json({message: "Post Successfully Deleted!"})
+}
 
-module.exports = {createPost, getPosts}
+module.exports = {createPost, getPosts, getPost, updatePost, deletePost}
