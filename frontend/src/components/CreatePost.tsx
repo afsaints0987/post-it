@@ -2,6 +2,7 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import {http} from "../config/axios"
+import "../components/CreatePost.scss"
 
 interface NewPostProp {
   handleRefresh: () => void;
@@ -35,7 +36,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
   };
 
   return (
-    <Form onSubmit={handlePostSubmit}>
+    <Form onSubmit={handlePostSubmit} className="mt-5">
       <Form.Group className="mb-2">
         <Form.Control
           name="title"
@@ -56,6 +57,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
           className="border-0"
           onChange={handlePostChange}
           value={newPost.body}
+          style={{resize: "none"}}
         />
       </Form.Group>
       <Button variant="danger" type="submit">

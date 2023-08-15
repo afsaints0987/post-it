@@ -1,6 +1,7 @@
 import React from "react";
 import { http } from "../../config/axios";
 import CreatePost from "../../components/CreatePost";
+import * as FaIcons from 'react-icons/fa'
 
 interface PostsProps {
   _id?: string;
@@ -37,16 +38,18 @@ const Posts: React.FC<PostsProps> = () => {
       <CreatePost handleRefresh={handlePostRefresh}/>
       {posts ? (
         posts.map((post) => (
-          <div key={post._id} className="my-3">
+          <div key={post._id} className="my-4 post-container">
             <h4>{post.title}</h4>
-            <p>{post.body}</p>
-            <small>{new Date(post.createdAt).toLocaleString()}</small>
-            <span className="btn btn-sm btn-transparent border-0 text-sm">
-              Comment
-            </span>
-            <span className="btn btn-sm btn-transparent border-0 text-sm">
-              Like
-            </span>
+                <p>{post.body}</p>
+                <small>{new Date(post.createdAt).toLocaleString()}</small>
+                <span className="btn btn-sm btn-transparent border-0 text-sm">
+                Comment
+                </span>
+                <span className="btn btn-sm btn-transparent border-0 text-sm">
+                Like
+                </span>
+                <FaIcons.FaRegTrashAlt className="icons mx-2"/>
+                <FaIcons.FaRegEdit className="icons"/>
           </div>
         ))
       ) : (

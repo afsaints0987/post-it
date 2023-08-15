@@ -9,7 +9,7 @@ interface NavProps {
 
 const Navigation: React.FC<NavProps> = ({ showLogout }) => {
   return (
-    <header className="d-flex justify-content-between px-4 py-2 align-items-center shadow-sm bg-light mb-3">
+    <header className="d-flex justify-content-between px-4 py-2 align-items-center shadow-sm bg-light mb-3 sticky-top">
       <nav className="navbar navbar-expand-lg">
         <NavLink to="/" className="text-decoration-none">
           <h3 id="logo" className="text-danger">
