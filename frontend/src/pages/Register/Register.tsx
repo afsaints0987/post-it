@@ -30,7 +30,7 @@ const Register: React.FC = () => {
         text="Register"
         handleChange={handleRegisterChange}
         handleSubmit={handleRegisterSubmit}
-        link="/"
+        link="/login"
         linkText="Login"
       />
     </>
