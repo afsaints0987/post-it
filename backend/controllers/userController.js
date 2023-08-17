@@ -1,6 +1,6 @@
 const Users = require('../models/userModel')
 const bcrypt = require('bcryptjs')
-
+const jwt = require('jsonwebtoken')
 
 const registerUser = async (req, res) => {
     const {username, password, email} = req.body
@@ -35,6 +35,7 @@ const registerUser = async (req, res) => {
             _id: user.id,
             username: user.username,
             email: user.email,
+            token: generateToken(user._id),
             message: 'User Registered Successfully!'
         })
     } else {
@@ -54,6 +55,7 @@ const loginUser = async (req, res) => {
             _id: user.id,
             username: user.username,
             email: user.email,
+            token: generateToken(user._id),
             message: 'User Login Successfully!'
         })
     } else {
@@ -61,6 +63,22 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getUser = async (req, res) => {
+    const {_id, username, email} = await Users.findById(req.params.id)
+
+    res.status(200).json({
+        id: _id,
+        username,
+        email
+    })
+}
+
+const generateToken = (id) => {
+    return jwt.sign({id}, 'secret', {
+        expiresIn:'15d'
+    })
+}
+
 module.exports = {
-    registerUser, loginUser
+    registerUser, loginUser, getUser
 }

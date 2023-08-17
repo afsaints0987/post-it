@@ -9,9 +9,10 @@ const getPosts = async (req, res) => {
 
 // Create Post
 const createPost = async (req, res) => {
+    const user = await Users.findById(req.user.id)
     const {title, body} = req.body
 
-    const user = await Users.findById("64d9faf1b1262f82b15459fd")
+    console.log(user)
 
 
     if(!title && !body){
@@ -51,14 +52,17 @@ const updatePost = async (req, res) => {
     const updatedPostId = await Posts.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
-    res.status(200).json(updatedPostId)
+    res.status(200).json({
+        updatedPostId,
+        message: "Post Updated!"
+    })
 }
 
 
 // Delete Post
 const deletePost = async (req, res) => {
-    const deletePostId = await Posts.findByIdAndDelete(req.params.id)
-    res.status(200).json({message: "Post Successfully Deleted!"})
+    await Posts.findByIdAndDelete(req.params.id)
+    res.status(200).json({message: `Post ${req.params.id} Successfully Deleted!`})
 }
 
 module.exports = {createPost, getPosts, getPost, updatePost, deletePost}
