@@ -1,13 +1,11 @@
+import React from 'react'
 import { NavLink } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
-
+import {UserContext} from "../context/UserContext"
 import "../components/Navigation.scss";
 
-interface NavProps {
-  showLogout?: boolean;
-}
-
-const Navigation: React.FC<NavProps> = ({ showLogout }) => {
+const Navigation: React.FC = () => {
+  const {state} = React.useContext(UserContext)
   return (
     <header className="d-flex justify-content-between px-4 py-2 align-items-center shadow-sm bg-light mb-3 sticky-top">
       <nav className="navbar navbar-expand-lg">
@@ -18,7 +16,7 @@ const Navigation: React.FC<NavProps> = ({ showLogout }) => {
         </NavLink>
       </nav>
       <div>
-        {showLogout ? (
+        {state.isAuthenticated ? (
           <>
             <AiIcons.AiOutlineLogout />
             <NavLink to="/" className="text-dark mx-2 text-decoration-none">

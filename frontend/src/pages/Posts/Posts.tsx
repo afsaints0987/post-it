@@ -1,6 +1,8 @@
 import React from "react";
 import { http } from "../../config/axios";
 import CreatePost from "../../components/CreatePost";
+import {UserContext} from '../../context/UserContext'
+import {useLogin} from '../../hooks/useLogin'
 import * as FaIcons from 'react-icons/fa'
 
 interface PostsProps {
@@ -12,8 +14,9 @@ interface PostsProps {
 }
 
 const Posts: React.FC<PostsProps> = () => {
+    const {state} = React.useContext(UserContext)
+    const {success} = useLogin()
   const [posts, setPosts] = React.useState<PostsProps[]>([]);
-
   const getPosts = async () => {
     const fetchPosts = await http.get("/posts");
     const posts = fetchPosts.data;
@@ -35,21 +38,26 @@ const Posts: React.FC<PostsProps> = () => {
 
   return (
     <div className="container">
-      <CreatePost handleRefresh={handlePostRefresh}/>
+        {success && <p className="text-success">{success}</p>}
+      {state.isAuthenticated && <CreatePost handleRefresh={handlePostRefresh}/>}
       {posts ? (
         posts.map((post) => (
           <div key={post._id} className="my-4 post-container">
             <h4>{post.title}</h4>
                 <p>{post.body}</p>
                 <small>{new Date(post.createdAt).toLocaleString()}</small>
-                <span className="btn btn-sm btn-transparent border-0 text-sm">
-                Comment
-                </span>
-                <span className="btn btn-sm btn-transparent border-0 text-sm">
-                Like
-                </span>
-                <FaIcons.FaRegTrashAlt className="icons mx-2"/>
-                <FaIcons.FaRegEdit className="icons"/>
+                {state.isAuthenticated && (
+                    <>
+                    <span className="btn btn-sm btn-transparent border-0 text-sm">
+                    Comment
+                    </span>
+                    <span className="btn btn-sm btn-transparent border-0 text-sm">
+                    Like
+                    </span>
+                    <FaIcons.FaRegTrashAlt className="icons mx-2"/>
+                    <FaIcons.FaRegEdit className="icons"/>
+                    </>
+                )}
           </div>
         ))
       ) : (
