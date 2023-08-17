@@ -1,26 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
-import {UserContext, UserContextProps} from '../context/UserContext'
 import { http } from '../config/axios'
 import {AxiosError} from 'axios'
+import {useNavigate} from "react-router-dom"
 
 
-interface UserProps {
+interface RegisterProps {
+    username: string
     email: string,
     password: string
 }
 
-export const useLogin = () => {
+export const useRegister = () => {
     const [error, setError] = React.useState("")
-    const {dispatch} = React.useContext<UserContextProps>(UserContext)
-
-    const login = async (user: UserProps) => {
+    const navigate = useNavigate()
+    const register = async (user: RegisterProps) => {
 
         try {
-            const response = await http.post('users/login', user)
-            const userData = await response.data
-            console.log(userData)
-            dispatch({type: 'LOGIN', payload: userData})
+            const response = await http.post('users', user)
+            const registerData = await response.data
+            console.log(registerData)
+            navigate('/login')
 
         } catch (err) {
             const axiosError = err as AxiosError<any>
@@ -37,6 +37,6 @@ export const useLogin = () => {
         }
     }
 
-    return {login, error}
+    return {register, error}
 }
 

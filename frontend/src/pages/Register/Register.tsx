@@ -1,7 +1,9 @@
 import React from "react";
 import Forms from "../../components/Forms";
+import {useRegister} from "../../hooks/useRegister"
 
 const Register: React.FC = () => {
+  const {register, error} = useRegister()
     const [registerUser, setRegisterUser] = React.useState({
         username: "",
         email: "",
@@ -16,14 +18,15 @@ const Register: React.FC = () => {
     }))
   };
 
-  const handleRegisterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegisterSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(registerUser)
-
+    await register(registerUser)
   };
 
   return (
     <>
+    {error && <p className="text-danger text-center">{error}</p>}
       <Forms
         showUsername={true}
         title="Register"

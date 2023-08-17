@@ -5,7 +5,10 @@ import {UserContext} from "../context/UserContext"
 import "../components/Navigation.scss";
 
 const Navigation: React.FC = () => {
-  const {state} = React.useContext(UserContext)
+  const {state, dispatch} = React.useContext(UserContext)
+  const handleLogout = () => {
+    dispatch({type: 'LOGOUT'})
+  }
   return (
     <header className="d-flex justify-content-between px-4 py-2 align-items-center shadow-sm bg-light mb-3 sticky-top">
       <nav className="navbar navbar-expand-lg">
@@ -19,9 +22,9 @@ const Navigation: React.FC = () => {
         {state.isAuthenticated ? (
           <>
             <AiIcons.AiOutlineLogout />
-            <NavLink to="/" className="text-dark mx-2 text-decoration-none">
+            <span className="text-dark mx-2 text-decoration-none" onClick={handleLogout}>
               Logout
-            </NavLink>
+            </span>
           </>
         ) : (
           <>
