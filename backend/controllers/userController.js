@@ -73,10 +73,15 @@ const getUser = async (req, res) => {
     })
 }
 
-const generateToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET, {
+const generateToken = (id, res) => {
+    const token = jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn:'15d'
     })
+    res.cookie('jwt', token, {
+        httpOnly : true,
+        maxAge: 15 * 24 * 60 * 60 * 1000
+    })
+    return token;
 }
 
 module.exports = {
