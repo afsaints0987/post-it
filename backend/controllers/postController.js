@@ -12,9 +12,6 @@ const createPost = async (req, res) => {
     const user = await Users.findById(req.user.id)
     const {title, body} = req.body
 
-    console.log(user)
-
-
     if(!title && !body){
         res.status(400).json({message: 'No Post Created.'})
     }
