@@ -46,7 +46,7 @@ const Posts: React.FC<PostsProps> = () => {
           <div key={post._id} className="my-4 post-container">
             <h4>{post.title}</h4>
             <p>{post.body}</p>
-            <small style={{fontStyle: "italic", fontWeight: "bold"}}>author: {post.author?.username}</small><br/>
+            <small style={{fontStyle: "italic"}}>author: <strong>{post.author?.username}</strong></small><br/>
             <small>{new Date(post.createdAt).toLocaleString()}</small>
             {state.isAuthenticated && (
               <>
