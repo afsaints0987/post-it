@@ -1,6 +1,7 @@
 const Users = require('../models/userModel')
 const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
+const {generateToken} = require('../utils/generateToken')
+
 
 const registerUser = async (req, res) => {
     const {username, password, email} = req.body
@@ -31,11 +32,11 @@ const registerUser = async (req, res) => {
     })
 
     if(user){
+        generateToken(res, user._id),
         res.status(201).json({
             _id: user.id,
             username: user.username,
             email: user.email,
-            token: generateToken(user._id),
             message: 'User Registered Successfully!'
         })
     } else {
@@ -51,11 +52,11 @@ const loginUser = async (req, res) => {
     const user = await Users.findOne({email})
 
     if(user && (await bcrypt.compare(password, user.password))) {
+        generateToken(res, user._id),
         res.json({
             _id: user.id,
             username: user.username,
             email: user.email,
-            token: generateToken(user._id),
             message: 'User Login Successfully!'
         })
     } else {
@@ -71,17 +72,6 @@ const getUser = async (req, res) => {
         username,
         email
     })
-}
-
-const generateToken = (id, res) => {
-    const token = jwt.sign({id}, process.env.JWT_SECRET, {
-        expiresIn:'15d'
-    })
-    res.cookie('jwt', token, {
-        httpOnly : true,
-        maxAge: 15 * 24 * 60 * 60 * 1000
-    })
-    return token;
 }
 
 module.exports = {

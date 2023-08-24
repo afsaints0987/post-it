@@ -3,6 +3,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 const port = process.env.PORT || 3002
+const cookieParser = require('cookie-parser')
 const app = express();
 
 const userRoute = require('./routes/userRoute')
@@ -13,6 +14,7 @@ app.use(cors({
     credentials: true
 }))
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
