@@ -1,3 +1,17 @@
+@mixin hoverButton {
+    transition: 0.5s;
+
+    &:hover {
+        color: #dc3545 !important;
+        cursor: pointer;
+        transition: all 0.5s ease-in-out
+    }
+}
+
 #logo {
     font-family: "Pacifico";
+}
+
+#logout, #login {
+    @include hoverButton()
 }

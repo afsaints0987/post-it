@@ -21,18 +21,19 @@ const Navigation: React.FC = () => {
       <div>
         {state.isAuthenticated ? (
           <>
-            <AiIcons.AiOutlineLogout />
-            <span className="text-dark mx-2 text-decoration-none" onClick={handleLogout}>
+            <span className="text-dark mx-2 text-decoration-none" id="logout" onClick={handleLogout}>
+              <AiIcons.AiOutlineLogout className="mx-2"/>
               Logout
             </span>
           </>
         ) : (
           <>
-            <AiIcons.AiOutlineLogin />
             <NavLink
               to="/login"
               className="text-dark mx-2 text-decoration-none"
+              id="login"
             >
+            <AiIcons.AiOutlineLogin className="mx-2"/>
               Login
             </NavLink>
           </>
