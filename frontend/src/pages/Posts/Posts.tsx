@@ -8,6 +8,9 @@ interface PostsProps {
   _id?: string;
   title: string;
   body: string;
+  author: {
+    username: string
+  };
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createdAt?: any;
 }
@@ -43,6 +46,7 @@ const Posts: React.FC<PostsProps> = () => {
           <div key={post._id} className="my-4 post-container">
             <h4>{post.title}</h4>
             <p>{post.body}</p>
+            <small style={{fontStyle: "italic", fontWeight: "bold"}}>author: {post.author?.username}</small><br/>
             <small>{new Date(post.createdAt).toLocaleString()}</small>
             {state.isAuthenticated && (
               <>

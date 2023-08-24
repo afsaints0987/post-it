@@ -58,6 +58,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
           onChange={handlePostChange}
           value={newPost.body}
           style={{resize: "none"}}
+          maxLength={100}
         />
       </Form.Group>
       <Button variant="danger" type="submit">
