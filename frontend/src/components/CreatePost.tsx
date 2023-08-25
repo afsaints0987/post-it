@@ -4,11 +4,13 @@ import Button from "react-bootstrap/Button";
 import {http} from "../config/axios"
 import "../components/CreatePost.scss"
 
+
 interface NewPostProp {
   handleRefresh: () => void;
 }
 
 const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
+  
   const [newPost, setNewPost] = React.useState({
     title: "",
     body: "",

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import React from "react";
 import {ReactNode, createContext, useReducer} from "react";
 
 interface StateProps {
@@ -36,6 +37,8 @@ const reducer = (state: StateProps, action: { type: string; payload: any; }) => 
 
 export const UserProvider = ({children}: {children: ReactNode}) => {
     const [state, dispatch] = useReducer(reducer, initialState)
+
+    
 
     return (
         <UserContext.Provider value={{state, dispatch}}>

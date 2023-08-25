@@ -13,7 +13,6 @@ interface UserProps {
 export const useLogin = () => {
     const [error, setError] = React.useState("")
     const {dispatch} = React.useContext<UserContextProps>(UserContext)
-
     const login = async (user: UserProps) => {
 
         try {
@@ -37,6 +36,8 @@ export const useLogin = () => {
         }
     }
 
-    return {login, error}
+    
+
+    return {login, error, dispatch}
 }
 

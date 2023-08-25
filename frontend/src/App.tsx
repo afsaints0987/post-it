@@ -4,12 +4,16 @@ import Register from './pages/Register/Register'
 import Navigation from './components/Navigation'
 import Posts from './pages/Posts/Posts'
 
+
 function App() {
+  
   return (
     <>
-      <Navigation showLogout={false}/>
+      <Navigation/>
       <Routes>
-        <Route path="/" element={<Posts _id={''} title={''} body={''}/>}/>
+        <Route path="/" element={<Posts _id={''} title={''} body={''} author={{
+          username: ''
+        }}/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
       </Routes>
