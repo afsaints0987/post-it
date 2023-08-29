@@ -52,7 +52,7 @@ const loginUser = async (req, res) => {
     const user = await Users.findOne({email})
 
     if(user && (await bcrypt.compare(password, user.password))) {
-        generateToken(res, user._id),
+        generateToken(user._id, res),
         res.json({
             _id: user.id,
             username: user.username,

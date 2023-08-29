@@ -10,6 +10,7 @@ const getPosts = async (req, res) => {
 // Create Post
 const createPost = async (req, res) => {
     const user = await Users.findById(req.user.id)
+    console.log(user)
     const {title, body} = req.body
 
     if(!title && !body){

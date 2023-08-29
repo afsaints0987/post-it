@@ -10,7 +10,7 @@ const userRoute = require('./routes/userRoute')
 const postRoute = require('./routes/postRoute')
 
 app.use(cors({
-    origin: true,
+    origin: 'http://localhost:5173',
     credentials: true
 }))
 
