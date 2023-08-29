@@ -3,7 +3,6 @@ import { http } from "../../config/axios";
 import CreatePost from "../../components/CreatePost";
 import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
-import { useCookies } from "react-cookie";
 
 interface PostsProps {
   _id?: string;
@@ -17,7 +16,6 @@ interface PostsProps {
 }
 
 const Posts: React.FC<PostsProps> = () => {
-  const [cookies] = useCookies(['jwt'])
   const { state } = React.useContext(UserContext);
   const [posts, setPosts] = React.useState<PostsProps[]>([]);
   const getPosts = async () => {
@@ -25,7 +23,6 @@ const Posts: React.FC<PostsProps> = () => {
     const posts = fetchPosts.data;
     setPosts(posts);
   };
-  console.log(cookies)
 
   React.useEffect(() => {
     getPosts();

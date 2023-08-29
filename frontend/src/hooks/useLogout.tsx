@@ -14,7 +14,7 @@ export const useLogout = () => {
             dispatch({
                 type: 'LOGOUT',
                 payload: undefined
-            }); // Dispatch a LOGOUT action
+            }); 
         } catch (err) {
             console.error('An error occurred', err);
         }

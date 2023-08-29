@@ -43,7 +43,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
         <Form.Control
           name="title"
           type="text"
-          placeholder="Title"
+          placeholder="What's the topic?"
           className="border-0"
           onChange={handlePostChange}
           value={newPost.title}
@@ -55,7 +55,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
           as="textarea"
           rows={4}
           type="text"
-          placeholder="Post something unusual..."
+          placeholder="Tell me more..."
           className="border-0"
           onChange={handlePostChange}
           value={newPost.body}
