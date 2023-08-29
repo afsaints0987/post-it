@@ -5,6 +5,7 @@ import { http } from '../config/axios'
 import {AxiosError} from 'axios'
 
 
+
 interface UserProps {
     email: string,
     password: string
@@ -16,8 +17,11 @@ export const useLogin = () => {
     const login = async (user: UserProps) => {
 
         try {
-            const response = await http.post('users/login', user)
+            const response = await http.post('users/login', user, {
+                withCredentials: true
+            })
             const userData = await response.data
+            
             console.log(userData)
             dispatch({type: 'LOGIN', payload: userData})
 

@@ -4,13 +4,11 @@ import Button from "react-bootstrap/Button";
 import {http} from "../config/axios"
 import "../components/CreatePost.scss"
 
-
 interface NewPostProp {
   handleRefresh: () => void;
 }
 
 const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
-  
   const [newPost, setNewPost] = React.useState({
     title: "",
     body: "",
@@ -28,7 +26,9 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
     e.preventDefault();
     console.log(newPost);
 
-    await http.post('/posts', newPost)
+    await http.post('/posts', newPost, {
+      withCredentials: true
+    })
 
     setNewPost({
       title: "",
