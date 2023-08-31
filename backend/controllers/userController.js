@@ -62,12 +62,23 @@ const loginUser = async (req, res) => {
     } else {
         res.status(400).json({message: "Invalid Credentials please try again"})
     }
+    return
 }
 
 const getUser = async (req, res) => {
     const {_id, username, email} = await Users.findById(req.params.id)
 
     res.status(200).json({
+        id: _id,
+        username,
+        email
+    })
+}
+
+const getMe = async (req, res) => {
+    const {_id, username, email} = await Users.findById(req.user.id)
+
+    res.status(201).json({
         id: _id,
         username,
         email
@@ -84,5 +95,5 @@ const logoutUser = async (req, res) => {
 }
 
 module.exports = {
-    registerUser, loginUser, getUser, logoutUser
+    registerUser, loginUser, getUser, logoutUser, getMe
 }
