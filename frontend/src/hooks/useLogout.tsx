@@ -14,7 +14,9 @@ export const useLogout = () => {
             dispatch({
                 type: 'LOGOUT',
                 payload: undefined
-            }); 
+            });
+            
+            localStorage.removeItem('userInfo')
         } catch (err) {
             console.error('An error occurred', err);
         }

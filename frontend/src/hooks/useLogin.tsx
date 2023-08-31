@@ -4,8 +4,6 @@ import {UserContext, UserContextProps} from '../context/UserContext'
 import { http } from '../config/axios'
 import {AxiosError} from 'axios'
 
-
-
 interface UserProps {
     email: string,
     password: string
@@ -22,8 +20,15 @@ export const useLogin = () => {
             })
             const userData = await response.data
             
-            console.log(userData)
-            dispatch({type: 'LOGIN', payload: userData})
+            const userInfo = {
+                username: userData.username,
+                email: userData.email,
+                isAuthenticated: true
+            }
+            
+            localStorage.setItem('userInfo', JSON.stringify(userInfo))
+            dispatch({type: 'LOGIN', payload: userInfo})
+            window.location.replace("/")
 
         } catch (err) {
             const axiosError = err as AxiosError<any>
@@ -39,8 +44,6 @@ export const useLogin = () => {
             }
         }
     }
-
-    
 
     return {login, error, dispatch}
 }

@@ -3,14 +3,14 @@ import React from "react";
 import {ReactNode, createContext, useReducer} from "react";
 
 interface StateProps {
+    username: string,
     email: string,
-    password: string,
     isAuthenticated?: boolean
 }
 
 const initialState = {
-    email: "",
-    password:"",
+    username: "",
+    email:"",
     isAuthenticated: false
 }
 
@@ -26,7 +26,6 @@ const reducer = (state: StateProps, action: { type: string; payload: any; }) => 
         case 'LOGIN':
             return {
                 ...state,
-                isAuthenticated: true
             }
         case 'LOGOUT':
             return initialState;
@@ -36,7 +35,8 @@ const reducer = (state: StateProps, action: { type: string; payload: any; }) => 
 };
 
 export const UserProvider = ({children}: {children: ReactNode}) => {
-    const [state, dispatch] = useReducer(reducer, initialState)
+    const userData = JSON.parse(localStorage.getItem("userInfo") || "{}")
+    const [state, dispatch] = useReducer(reducer, {...initialState, ...userData})
 
     return (
         <UserContext.Provider value={{state, dispatch}}>

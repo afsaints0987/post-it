@@ -1,12 +1,9 @@
 import React from "react";
 import Forms from "../../components/Forms";
 import {useLogin} from '../../hooks/useLogin'
-import {useNavigate} from "react-router-dom"
-
 
 const Login: React.FC = () => {
   const {login, error} = useLogin();
-  const navigate = useNavigate()
     const [loginUser, setLoginUser] = React.useState({
         email: "",
         password: ""
@@ -21,10 +18,8 @@ const Login: React.FC = () => {
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(loginUser);
 
     await login(loginUser)
-    navigate('/')
   };
 
   return (
