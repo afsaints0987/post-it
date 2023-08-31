@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
 import {UserContext} from "../context/UserContext"
 import { useLogout } from '../hooks/useLogout';
+import Dropdown from 'react-bootstrap/Dropdown'
 import "../components/Navigation.scss";
 
 const Navigation: React.FC = () => {
@@ -22,12 +23,21 @@ const Navigation: React.FC = () => {
       </nav>
       <div>
         {state.isAuthenticated ? (
-          <>
-            <span className="text-dark mx-2 text-decoration-none" id="logout" onClick={handleLogout}>
-              <AiIcons.AiOutlineLogout className="mx-2"/>
-              Logout
-            </span>
-          </>
+          <Dropdown>
+          <Dropdown.Toggle id="dropwon-basic" variant="transparent" className="border-0">
+            {state.username}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item>
+              <Link to='/profile' className="text-decoration-none mx-2 text-dark">Profile</Link>
+            </Dropdown.Item>
+            <Dropdown.Item>
+              <span className="text-dark mx-2 text-decoration-none" id="logout" onClick={handleLogout}>
+                Logout
+              </span>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+          </Dropdown>
         ) : (
           <>
             <NavLink

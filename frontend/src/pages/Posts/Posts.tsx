@@ -41,10 +41,7 @@ const Posts: React.FC<PostsProps> = () => {
   return (
     <div className="container">
       {state.isAuthenticated && (
-        <>
-        <h4>Hello {state.username}!</h4>
         <CreatePost handleRefresh={handlePostRefresh} />
-        </>
       )}
       {posts ? (
         posts.map((post) => (
