@@ -1,19 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { http } from "../../config/axios";
 import CreatePost from "../../components/CreatePost";
 import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 interface PostsProps {
   _id?: string;
   title: string;
   body: string;
   author: {
-    id: string,
-    username: string
+    id: string;
+    username: string;
   };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   createdAt?: any;
 }
 
@@ -34,6 +34,17 @@ const Posts: React.FC<PostsProps> = () => {
     };
   }, []);
 
+  const handlePostUpdate = (id: any) => {
+    console.log(id);
+  };
+  const handlePostDelete = async (id: any) => {
+    const response = await http.delete(`posts/${id}`, {
+      withCredentials: true,
+    });
+    console.log(response.data.message);
+    handlePostRefresh();
+  };
+
   const handlePostRefresh = React.useCallback(() => {
     getPosts();
   }, []);
@@ -48,7 +59,17 @@ const Posts: React.FC<PostsProps> = () => {
           <div key={post._id} className="my-4 post-container">
             <h4>{post.title}</h4>
             <p>{post.body}</p>
-            <small style={{fontStyle: "italic"}}>author: {state.isAuthenticated ? <Link to={`/user/${post.author?.id}`}><strong>{post.author?.username}</strong></Link> : <strong>{post.author?.username}</strong>}</small><br/>
+            <small style={{ fontStyle: "italic" }}>
+              author:{" "}
+              {state.isAuthenticated && state.username !== post.author?.username ? (
+                <Link to={`/user/${post.author?.id}`}>
+                  <strong>{post.author?.username}</strong>
+                </Link>
+              ) : (
+                <strong>{post.author?.username}</strong>
+              )}
+            </small>
+            <br />
             <small>{new Date(post.createdAt).toLocaleString()}</small>
             {state.isAuthenticated && (
               <>
@@ -58,8 +79,18 @@ const Posts: React.FC<PostsProps> = () => {
                 <span className="btn btn-sm btn-transparent border-0 text-sm">
                   Like
                 </span>
-                <FaIcons.FaRegTrashAlt className="icons mx-2" />
-                <FaIcons.FaRegEdit className="icons" />
+                {state.username === post.author?.username && (
+                  <>
+                    <FaIcons.FaRegTrashAlt
+                      className="icons mx-2"
+                      onClick={() => handlePostDelete(post._id)}
+                    />
+                    <FaIcons.FaRegEdit
+                      className="icons"
+                      onClick={() => handlePostUpdate(post._id)}
+                    />
+                  </>
+                )}
               </>
             )}
           </div>
