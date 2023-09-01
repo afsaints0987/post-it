@@ -1,15 +1,15 @@
-const Posts = require('../models/postModel')
-const Users = require('../models/userModel')
+const Post = require('../models/postModel')
+const User = require('../models/userModel')
 
 // Get Posts
 const getPosts = async (req, res) => {
-    const posts = await Posts.find()
+    const posts = await Post.find()
     res.status(200).json(posts)
 }
 
 // Create Post
 const createPost = async (req, res) => {
-    const user = await Users.findById(req.user.id)
+    const user = await User.findById(req.user.id)
     console.log(user)
     const {title, body} = req.body
 
@@ -17,7 +17,7 @@ const createPost = async (req, res) => {
         res.status(400).json({message: 'No Post Created.'})
     }
 
-    const post = await Posts.create({
+    const post = await Post.create({
         title,
         body,
         author: {
@@ -41,13 +41,13 @@ const createPost = async (req, res) => {
 
 // Get Post
 const getPost = async (req, res) => {
-    const post = await Posts.findById(req.params.id);
+    const post = await Post.findById(req.params.id);
     res.status(200).json(post)
 }
 
 // Update Post
 const updatePost = async (req, res) => {
-    const updatedPostId = await Posts.findByIdAndUpdate(req.params.id, req.body, {
+    const updatedPostId = await Post.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
     res.status(200).json({
@@ -59,7 +59,7 @@ const updatePost = async (req, res) => {
 
 // Delete Post
 const deletePost = async (req, res) => {
-    await Posts.findByIdAndDelete(req.params.id)
+    await Post.findByIdAndDelete(req.params.id)
     res.status(200).json({message: `Post ${req.params.id} Successfully Deleted!`})
 }
 
