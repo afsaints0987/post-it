@@ -66,7 +66,7 @@ const loginUser = async (req, res) => {
 }
 
 const getUser = async (req, res) => {
-    const {_id, username, email} = await Users.findById(req.params.id)
+    const {_id, username, email} = await User.findById(req.params.id)
 
     res.status(200).json({
         id: _id,
@@ -76,14 +76,23 @@ const getUser = async (req, res) => {
 }
 
 const getMe = async (req, res) => {
-    const {_id, username, email} = await Users.findById(req.user.id)
+    try {
+        const user = await User.findById(req.user.id);
 
-    res.status(201).json({
-        id: _id,
-        username,
-        email
-    })
-}
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        res.status(200).json({
+            id: user._id,
+            username: user.username,
+            email: user.email
+        });
+    } catch (error) {
+        console.error("Error in getMe:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
 
 const logoutUser = async (req, res) => {
     res.cookie('jwt', '', {
