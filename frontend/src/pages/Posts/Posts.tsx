@@ -6,7 +6,7 @@ import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-interface PostsProps {
+export interface PostsProps {
   _id?: string;
   title: string;
   body: string;
@@ -37,6 +37,7 @@ const Posts: React.FC<PostsProps> = () => {
   const handlePostUpdate = (id: any) => {
     console.log(id);
   };
+
   const handlePostDelete = async (id: any) => {
     const response = await http.delete(`posts/${id}`, {
       withCredentials: true,
@@ -66,7 +67,7 @@ const Posts: React.FC<PostsProps> = () => {
                   <strong>{post.author?.username}</strong>
                 </Link>
               ) : (
-                <strong>{post.author?.username}</strong>
+                <strong>{state.username === post.author?.username ? "me" : post.author?.username}</strong>
               )}
             </small>
             <br />

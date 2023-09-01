@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import {http} from '../../config/axios'
+import {Container, Row, Col} from 'react-bootstrap'
 
 interface UserProfileProps {
     username: string,
@@ -25,11 +26,18 @@ const User: React.FC<UserProfileProps> = () => {
     },[id])
 
   return (
-    <div className="text-center">
-        <h4>User Profile</h4>
-        <p>Username: {user?.username}</p>
-        <p>Email: {user?.email}</p>
-    </div>
+    <Container fluid>
+        <Row>
+            <Col md="auto">
+                <h4>User Profile</h4>
+                <p>Username: {user?.username}</p>
+                <p>Email: {user?.email}</p>
+            </Col>
+            <Col md="auto" className="mx-3">
+                <p>This for post</p>
+            </Col>
+        </Row>
+    </Container>
   )
 }
 
