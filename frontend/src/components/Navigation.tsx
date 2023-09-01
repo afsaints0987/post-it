@@ -4,6 +4,7 @@ import * as AiIcons from "react-icons/ai";
 import {UserContext} from "../context/UserContext"
 import { useLogout } from '../hooks/useLogout';
 import Dropdown from 'react-bootstrap/Dropdown'
+import Searchbar from './Searchbar';
 import "../components/Navigation.scss";
 
 const Navigation: React.FC = () => {
@@ -21,6 +22,7 @@ const Navigation: React.FC = () => {
           </h3>
         </NavLink>
       </nav>
+      <Searchbar/>
       <div>
         {state.isAuthenticated ? (
           <Dropdown>
