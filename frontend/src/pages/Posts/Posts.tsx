@@ -5,12 +5,13 @@ import CreatePost from "../../components/CreatePost";
 import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
 import { Link } from "react-router-dom";
+import Comment from "../../components/Comment";
 
 export interface PostsProps {
   _id?: string;
   title: string;
   body: string;
-  author: {
+  author?: {
     id: string;
     username: string;
   };
@@ -74,16 +75,10 @@ const Posts: React.FC<PostsProps> = () => {
             <small>{new Date(post.createdAt).toLocaleString()}</small>
             {state.isAuthenticated && (
               <>
-                <span className="btn btn-sm btn-transparent border-0 text-sm">
-                  Comment
-                </span>
-                <span className="btn btn-sm btn-transparent border-0 text-sm">
-                  Like
-                </span>
                 {state.username === post.author?.username && (
                   <>
                     <FaIcons.FaRegTrashAlt
-                      className="icons mx-2"
+                      className="icons mx-3"
                       onClick={() => handlePostDelete(post._id)}
                     />
                     <FaIcons.FaRegEdit
@@ -92,6 +87,7 @@ const Posts: React.FC<PostsProps> = () => {
                     />
                   </>
                 )}
+                <Comment/>
               </>
             )}
           </div>
