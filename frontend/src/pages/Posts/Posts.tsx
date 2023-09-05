@@ -24,6 +24,7 @@ const Posts: React.FC<PostsProps> = () => {
   const getPosts = async () => {
     const fetchPosts = await http.get("/posts");
     const posts = fetchPosts.data;
+    console.log(posts)
     setPosts(posts);
   };
 
@@ -87,9 +88,9 @@ const Posts: React.FC<PostsProps> = () => {
                     />
                   </>
                 )}
-                <Comment/>
               </>
             )}
+            <Comment/>
           </div>
         ))
       ) : (
