@@ -13,7 +13,7 @@ export interface CommentProps {
 interface CommentComponentProps {
     comments: CommentProps[],
     postId: string | undefined
-    commentRefresh: () => void;
+    commentRefresh: () => void ;
 }
 
 const Comment: React.FC<CommentComponentProps> = ({comments, postId, commentRefresh}) => {

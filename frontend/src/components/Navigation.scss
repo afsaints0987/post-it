@@ -12,6 +12,6 @@
     font-family: "Pacifico";
 }
 
-#logout, #login {
+#logout, #login, #profile {
     @include hoverButton()
 }

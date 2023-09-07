@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import * as AiIcons from "react-icons/ai";
 import {UserContext} from "../context/UserContext"
 import { useLogout } from '../hooks/useLogout';
@@ -26,30 +26,28 @@ const Navigation: React.FC = () => {
       <>
         {state.isAuthenticated ? (
           <Dropdown>
-          <Dropdown.Toggle id="dropwon-basic" variant="transparent" className="border-0">
+          <Dropdown.Toggle id="dropdown-basic" variant="transparent" className="border-0">
             {state.username}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item>
-              <NavLink to='/profile' className="text-decoration-none text-dark mx-2">Profile</NavLink>
-            </Dropdown.Item>
-            <Dropdown.Item>
-              <span className="text-dark mx-2 text-decoration-none" id="logout" onClick={handleLogout}>
+            <div className="d-flex flex-column text-center">
+              <Link to='/profile' className="text-decoration-none text-dark" id="profile">Profile</Link>
+              <span className="text-dark text-decoration-none" id="logout" onClick={handleLogout}>
                 Logout
               </span>
-            </Dropdown.Item>
+            </div>
           </Dropdown.Menu>
           </Dropdown>
         ) : (
           <>
-            <NavLink
+            <Link
               to="/login"
               className="text-dark mx-2 text-decoration-none"
               id="login"
             >
             <AiIcons.AiOutlineLogin className="mx-2"/>
               Login
-            </NavLink>
+            </Link>
           </>
         )}
       </>
