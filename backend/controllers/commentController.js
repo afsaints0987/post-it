@@ -13,6 +13,7 @@ const createComment = async (req, res) => {
 
      if(!text){
         res.status(400).json({message: "Please write a comment"})
+        return
      }
 
      const comment = await Comment.create({
