@@ -2,7 +2,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import { UserContext } from "../context/UserContext";
-import {http} from '../config/axios'
+import { http } from "../config/axios";
 
 export interface CommentProps {
   _id: string;
@@ -11,14 +11,19 @@ export interface CommentProps {
 }
 
 interface CommentComponentProps {
-    comments: CommentProps[],
-    postId: string | undefined
-    commentRefresh: () => void ;
+  comments: CommentProps[];
+  postId: string | undefined;
+  commentRefresh: () => void;
 }
 
-const Comment: React.FC<CommentComponentProps> = ({comments, postId, commentRefresh}) => {
+const Comment: React.FC<CommentComponentProps> = ({
+  comments,
+  postId,
+  commentRefresh,
+}) => {
   const { state } = React.useContext(UserContext);
   const [count, setCount] = React.useState(0);
+  const [error, setError] = React.useState(false);
   const [isToggle, setIsToggle] = React.useState(false);
   const [commentText, setCommentText] = React.useState("");
 
@@ -27,8 +32,8 @@ const Comment: React.FC<CommentComponentProps> = ({comments, postId, commentRefr
   };
 
   const handleToggleComment = (id: string | undefined) => {
-    if(id){
-        setIsToggle(!isToggle);
+    if (id) {
+      setIsToggle(!isToggle);
     }
   };
 
@@ -39,13 +44,23 @@ const Comment: React.FC<CommentComponentProps> = ({comments, postId, commentRefr
 
   const handleCommentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    await http.post(`/posts/${postId}/comment`, {text: commentText}, {
-        withCredentials: true
-    })
 
-    setCommentText("")
-    commentRefresh()
+    if (!commentText) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 2000);
+    } else {
+      await http.post(
+        `/posts/${postId}/comment`,
+        { text: commentText },
+        {
+          withCredentials: true,
+        }
+      );
+      setCommentText("");
+      commentRefresh();
+    }
   };
 
   return (
@@ -88,14 +103,19 @@ const Comment: React.FC<CommentComponentProps> = ({comments, postId, commentRefr
               <Button variant="danger" type="submit" size="sm">
                 Submit
               </Button>
+              {error && <p className="text-danger">Please write a comment</p>}
             </Form>
           )}
-          {comments && comments.map((comment) => (
-            <div className="m-3 px-4 py-2 border border-danger rounded shadow-sm" key={comment._id}>
-              <small style={{ fontWeight: "bold" }}>{comment.author}</small>
-              <p>{comment.text}</p>
-            </div>
-          ))}
+          {comments &&
+            comments.map((comment) => (
+              <div
+                className="m-3 px-4 py-2 border rounded shadow-sm"
+                key={comment._id}
+              >
+                <small style={{ fontWeight: "bold" }}>{comment.author}</small>
+                <p>{comment.text}</p>
+              </div>
+            ))}
         </>
       )}
     </>

@@ -13,7 +13,7 @@ interface UserProfileProps {
 
 const Profile: React.FC<UserProfileProps> = () => {
   const { state } = useContext(UserContext);
-  const [user, setUser] = React.useState<UserProfileProps>();
+  const [user, setUser] = React.useState<UserProfileProps | undefined>(undefined);
   const [posts, setPosts] = React.useState<PostsProps[]>([]);
 
   const getProfile = async () => {
