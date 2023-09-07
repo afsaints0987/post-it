@@ -6,6 +6,7 @@ import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Comment from "../../components/Comment";
+import { CommentProps } from "../../components/Comment";
 
 export interface PostsProps {
   _id?: string;
@@ -16,6 +17,7 @@ export interface PostsProps {
     username: string;
   };
   createdAt?: any;
+  comments: CommentProps[]; postId: string | undefined
 }
 
 const Posts: React.FC<PostsProps> = () => {
@@ -90,7 +92,7 @@ const Posts: React.FC<PostsProps> = () => {
                 )}
               </>
             )}
-            <Comment/>
+            <Comment comments={post.comments} postId={post._id} commentRefresh={handlePostRefresh}/>
           </div>
         ))
       ) : (

@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Posts _id={''} title={''} body={''} author={{
           username: '',
           id: ''
-        }}/>}/>
+        }} comments={[]} postId={undefined}/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/user/:id" element={<User username={''} email={''}/>}/>
