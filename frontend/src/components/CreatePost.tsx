@@ -38,7 +38,7 @@ const CreatePost: React.FC<NewPostProp> = ({handleRefresh}) => {
   };
 
   return (
-    <Form onSubmit={handlePostSubmit} className="mt-5">
+    <Form onSubmit={handlePostSubmit} className="mt-3">
       <Form.Group className="mb-2">
         <Form.Control
           name="title"

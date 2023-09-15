@@ -5,6 +5,7 @@ import { PostsProps } from "../Posts/Posts";
 import { UserContext } from "../../context/UserContext";
 import * as FaIcons from "react-icons/fa";
 import Comment from "../../components/Comment";
+import CreatePost from "../../components/CreatePost";
 
 interface UserProfileProps {
   username: string;
@@ -62,9 +63,9 @@ const Profile: React.FC<UserProfileProps> = () => {
           <p>Email: {user?.email}</p>
         </Col>
         <Col md="auto" className="mx-3" lg="8">
-          {posts &&
+          {posts ?
             posts.map((post) => (
-              <div key={post._id} className="mb-3">
+              <div key={post._id} className="my-3">
                 <h4>{post.title}</h4>
                 <p>{post.body}</p>
                 {state.isAuthenticated && (
@@ -83,7 +84,7 @@ const Profile: React.FC<UserProfileProps> = () => {
                   </>
                 )}
               </div>
-            ))}
+            )) : <CreatePost handleRefresh={refreshProfile}/>}
         </Col>
       </Row>
     </Container>

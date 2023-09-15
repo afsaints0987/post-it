@@ -109,7 +109,7 @@ const Comment: React.FC<CommentComponentProps> = ({
           {comments &&
             comments.map((comment) => (
               <div
-                className="m-3 px-4 py-2 border rounded shadow-sm"
+                className="mx-4 my-2 px-4 py-2 border-end-0 rounded-end shadow-sm bg-dark text-light"
                 key={comment._id}
               >
                 <small style={{ fontWeight: "bold" }}>{comment.author}</small>
