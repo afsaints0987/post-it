@@ -6,7 +6,7 @@ import Posts from './pages/Posts/Posts'
 import User from './pages/User/User'
 import Profile from './pages/Profile/Profile'
 import './App.css'
-import Error404 from './pages/Error404'
+import Error404 from './pages/Error/Error404'
 
 function App() {
   
